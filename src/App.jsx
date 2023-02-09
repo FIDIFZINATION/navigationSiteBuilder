@@ -8,9 +8,9 @@ import { DndProvider } from 'react-dnd'
 
 export const AllMenuItemsContext = createContext();
 
-function App() {
-
+function App() {  
   const [AllMenuItems, setAllMenuItems] = useState([])
+  
 
   return (
     <>

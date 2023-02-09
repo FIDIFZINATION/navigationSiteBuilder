@@ -1,23 +1,23 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useDrop } from 'react-dnd'
 import { AllMenuItemsContext } from '../App'
+import MenuItem from './MenuItem'
 
 const NewMenuEditor = () => {
+    const [newMenuItem, setNewMenuItem] = useState([])
 
-    const {AllMenuItems, setAllMenuItems} = useContext(AllMenuItemsContext)
-    const [newMenuItems, setNewmenuItems] = useState([])
+    const{AllMenuItems, setAllMenuItems} = useContext(AllMenuItemsContext)
 
     const onDropItem = (id) => {
-        const menuItem = AllMenuItems.filter((item) => {
+        const menuItem = AllMenuItems.find((item) => {
             return item.id == id
         })
 
-        setNewmenuItems([...newMenuItems, menuItem])
-        console.log(newMenuItems)
+        setNewMenuItem([...newMenuItem,menuItem])
+
+        console.log(newMenuItem)
+        console.log(id)
         console.log(menuItem)
-
-
-        console.log(id);
     }
 
     const [{ isOver }, dropref] = useDrop(() => ({
@@ -28,11 +28,20 @@ const NewMenuEditor = () => {
         })
 
     }))
+
     return (
         <>
             <div>Menu Editor</div>
             <div style={{ width: '100%', height: '100%' }} ref={dropref}>
+                {/* {newMenuItem.map((item, i) => {
+                    console.log('reaching')
+                    return (
+                        <div key={item.id}>
+                            <MenuItem id={item.id} title={item.Title} url={item.Url} i={i} />
+                        </div>
 
+                    );
+                })} */}
             </div>
         </>
     )
