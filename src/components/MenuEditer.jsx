@@ -7,7 +7,6 @@ export const MenuEditer = () => {
   const { AllMenuItems, setAllMenuItems } = useContext(AllMenuContext);
   const [selectedMenuItems, setSelectedMenuItems] = useState([]);
 
-  var newItems = [];
 
   const onDropItem = (id) => {
     console.log(id);
@@ -20,10 +19,7 @@ export const MenuEditer = () => {
       return;
     }
 
-    newItems.push(menuItem);
-    localStorage.setItem("SelectedItemsList", JSON.stringify(newItems));
-    // console.log("New Items List: ", newItems);
-    // console.log("Menu Item Got : ", menuItem);
+    setSelectedMenuItems([...selectedMenuItems,menuItem])
   };
 
   const [{ isOver }, dropRef] = useDrop(() => ({
@@ -32,13 +28,8 @@ export const MenuEditer = () => {
       isOver: !!monitor.isOver(),
     }),
     drop: (item) => onDropItem(item.id),
-  }));
+  }),[AllMenuItems, selectedMenuItems]);
 
-  useEffect(() => {
-    var dataFromLocalstorage = localStorage.getItem("SelectedItemsList");
-    setSelectedMenuItems(JSON.parse(dataFromLocalstorage));
-    console.log('SELECTEDlIST', selectedMenuItems);
-  }, [localStorage.getItem("SelectedItemsList").length]);
 
   return (
     <>

@@ -10,13 +10,12 @@ export const AllMenuContext = createContext();
 
 function App() {
   const [AllMenuItems, setAllMenuItems] = useState([]);
-  useEffect(()=>{
-    localStorage.setItem('SelectedItemsList', JSON.stringify([{}]))
-  },[])
+  const [selectedMenuItems, setSelectedMenuItems] = useState([]);
+
   return (
     <>
       <DndProvider backend={HTML5Backend}>
-        <AllMenuContext.Provider value={{ AllMenuItems, setAllMenuItems }}>
+        <AllMenuContext.Provider value={{ AllMenuItems, setAllMenuItems, selectedMenuItems, setSelectedMenuItems }}>
           <div className="container main-screen">
             <div className="sections">
               <MenuItems />
